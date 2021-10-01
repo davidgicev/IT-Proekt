@@ -1,0 +1,54 @@
+﻿@using Proekt.Models
+@model LoginViewModel
+
+@section Stylesheets {
+    <link rel="Stylesheet" href="@Href("~/Content/CustomCss/Sign.css")" />
+}
+
+<div class="heading"></div>
+<div class="sign-wrapper">
+    <div class="sign-form">
+        <div>Log In</div>
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Use a local account to log in.</h4>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="sign-section">
+                    @Html.LabelFor(m => m.Email, new { @class = "sign-label" })
+                    <div>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "sign-input" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="sign-section">
+                    @Html.LabelFor(m => m.Password, new { @class = "sign-label" })
+                    <div>
+                        @Html.PasswordFor(m => m.Password, new { @class = "sign-input" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="sign-section">
+                    <div>
+                        <div class="checkbox">
+                            @Html.LabelFor(m => m.RememberMe)
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                        </div>
+                    </div>
+                </div>
+                <div class="sign-section">
+                    <input type="submit" value="Log in" class="btn btn-default" />
+                </div>
+                <p>
+                    Don't have an account? @Html.ActionLink("Register as a new user", "Register")
+                </p>
+            }
+        </section>
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

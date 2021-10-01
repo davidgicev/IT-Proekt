@@ -1,0 +1,217 @@
+﻿@using Proekt.Models
+@model MovieModel
+
+@section Stylesheets {
+    <link rel="Stylesheet" href="@Href("~/Content/CustomCss/Movie.css")" />
+}
+
+
+<div class="heading">
+    <div class="backdrop" style="background-image: url(https://image.tmdb.org/t/p/w1280@(Model.Backdrop))"></div>
+    <div>
+        <div class="poster" style="background-image:url(https://image.tmdb.org/t/p/w500@(Model.Poster))">
+        </div>
+        <div class="details">
+            <div class="title">@Model.Title</div>
+            <div class="details-down">
+                <div class="info">
+                    <div class="year">
+                        @Model.ReleaseDate.Value.Year (@Model.Status)
+                    </div>
+                    <div class="quick">
+                        <div class="language">@Model.Language</div>
+                        @if (Model.Runtime != 0)
+                        {
+                            <div class="runtime">@(Model.Runtime/60)h @(Model.Runtime%60)min</div>
+                        }
+                    </div>
+                    <div class="genres">
+                        @foreach (var genre in Model.Genres)
+                        {
+                            <a href="/Search/Index?type=true&id=@genre.Id">
+                                <div>@genre.Name</div>
+                            </a>
+                        }
+                    </div>
+                    <div class="ratings">
+                        @if (Model.ImdbRating != null)
+                        {
+                            <div>
+                                <div style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/IMDb_Logo_Square.svg/2048px-IMDb_Logo_Square.svg.png)"></div>
+                                <div>IMDB</div>
+                                <div>@Model.ImdbRating</div>
+                            </div>
+                        }
+                        @if (Model.RottenTomatoesRating != null)
+                        {
+                            <div>
+                                <div style="background-image: url(https://www.pngkit.com/png/detail/322-3223817_rotten-tomatoes-logo-png.png);"></div>
+                                <div style="line-height: 1em; padding-top: 0.1em;">Rotten<br />Tomatoes</div>
+                                <div>@Model.RottenTomatoesRating</div>
+                            </div>
+                        }
+                        @if (Model.MetacriticRating != null)
+                        {
+                            <div>
+                                <div style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Metacritic.svg/1200px-Metacritic.svg.png)"></div>
+                                <div>Metacritic</div>
+                                <div>@Model.MetacriticRating</div>
+                            </div>
+                        }
+                    </div>
+                    <div class="overview">@Model.Overview</div>
+                    <div class="actions">
+                        <div id="cineplexx_button"><div><i class="fas fa-film"></i></div><div>Cineplexx</div></div>
+                        @if (ViewBag.favorited == true)
+                        {
+                            <div id="favoriteButton" class="favorited"><div><i class="fas fa-heart"></i></div><div>Favorited</div></div>
+                        }
+                        else
+                        {
+                            <div id="favoriteButton"><div><i class="far fa-heart"></i></div><div>Favorite</div></div>
+                        }
+                        <div onclick="window.open('@Model.Trailer')"><div><i class="fas fa-play"></i></div><div>Watch Trailer</div></div>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <div onclick="javascript: location.href = '/Movie/Delete/@Model.Id'"><div><i class="fas fa-trash-alt"></i></div><div>Delete Movie</div></div>
+                        }
+                    </div>
+                </div>
+                <div></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="content container">
+
+    <div class="spacer"></div>
+
+    <div class="section">
+        <div class="section-label">Cast</div>
+
+        <div class="horizontal-ml-init" style="width: 100%;">
+
+            @foreach (var person in Model.Cast)
+            {
+                @Html.Partial("ActorCard", person.Actor, new ViewDataDictionary { { "role", person.Role } });
+            }
+
+        </div>
+
+    </div>
+
+    @if (Model.Companies.Count() > 0)
+    {
+        <div class="spacer"></div>
+
+        <div class="section companies-section">
+            <div class="section-label" style="color: dimgrey;">Production Companies</div>
+            <div class="companies">
+                @foreach (var company in Model.Companies)
+                {
+                    <div>
+                        @if (company.Logo != null)
+                        {
+                            <img src="https://image.tmdb.org/t/p/w45@(company.Logo)" />
+                        }
+                        else
+                        {
+                            <div></div>
+                        }
+                        <div>@company.Name</div>
+                        <div>@company.Country</div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    @if (Model.Collection != null)
+    {
+        <div class="spacer"></div>
+
+        <div class="section">
+            <div class="collection-card" style="background-image: url(https://image.tmdb.org/t/p/w1280@(Model.Collection.Backdrop))">
+                <div class="collection-card-label">
+                    <span class="collection-card-label-wrapper">
+                        <span>Belongs to </span> <span>@Model.Collection.Name</span>
+                    </span>
+                </div>
+                <div class="collection-card-parts">
+                    @foreach (var movie in Model.Collection.Movies)
+                    {
+                        if (movie.Poster == null || movie.ReleaseDate == null)
+                        {
+                            continue;
+                        }
+                        <div style="background-image: url(https://image.tmdb.org/t/p/w200@(movie.Poster))"></div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+<script>
+    window.addEventListener("load", function () {
+
+        document.getElementById("cineplexx_button").addEventListener("click", function () {
+            window.open("https://www.cineplexx.mk/suche/?q=" + "@Model.Title");
+        })
+
+        @if(Model.Collection != null)
+        {
+            @: $(".collection-card").on("click", function () {
+            @:      location.href = '@Url.Action("Details", "Collection", new { id = Model.Collection.Id })';
+            @:  })
+        }
+
+        var loggedIn = '@User.Identity.IsAuthenticated' == "True";
+
+        document.getElementById("favoriteButton").addEventListener("click", function () {
+            if (loggedIn) {
+                $.ajax({
+                    method: "POST",
+                    url: "/Movie/Favorite",
+                    data: { id: @Model.Id },
+                    complete: function (data) {
+                        if (data.status != 200)
+                            return;
+                        console.log(data.responseText)
+                        let b = data.responseText == "True"
+                        this.classList.toggle("favorited")
+                        this.firstElementChild.firstElementChild.className = (b ? "fas" : "far") + " fa-heart"
+                        this.children[1].textContent = "Favorite" + (b ? "d" : "");
+                    },
+                    context: this
+                })
+            }
+            else {
+                bootbox.confirm({
+                    message: "You must be logged-in to favorite a movie!",
+                    buttons: {
+                        confirm: {
+                            label: '<i class="fa fa-user"></i>Login',
+                            className: 'login-button'
+                        },
+                        cancel: {
+                            label: '<i class="fa fa-times"></i>Cancel',
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            location.href = "/Account/Login"
+                        }
+                    }
+                });
+            }
+
+        })
+    })
+
+
+</script>
+

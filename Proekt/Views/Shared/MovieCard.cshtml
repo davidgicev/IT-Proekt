@@ -1,0 +1,15 @@
+﻿@using Proekt.Models
+@model MovieModel
+
+
+<div class="movie-card">
+    <a href="/Movie/Details/@Model.Id">
+        <div class="movie-card-poster">
+            <img src="https://image.tmdb.org/t/p/w500@(Model.Poster)" />
+        </div>
+        <div class="movie-card-label">
+            <div>@Model.Title</div>
+            <p>@Model.ReleaseDate.Value.Year</p>
+        </div>
+    </a>
+</div>

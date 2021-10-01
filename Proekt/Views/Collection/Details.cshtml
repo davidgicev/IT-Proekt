@@ -1,0 +1,96 @@
+﻿@using Proekt.Models
+@model CollectionModel
+
+
+@section Stylesheets {
+    <link rel="Stylesheet" href="@Href("~/Content/CustomCss/Collection.css")" />
+}
+
+
+<div class="heading">
+    <div class="backdrop" style="background-image: url(https://image.tmdb.org/t/p/w1280@(Model.Backdrop))"></div>
+    <div>
+        <div class="poster" style="background-image:url(https://image.tmdb.org/t/p/w500@(Model.Poster))">
+        </div>
+        <div class="details">
+            <div class="title">@Model.Name</div>
+            <div class="details-down">
+                <div class="info">
+                    <div class="year">
+                        @{
+                            var range = Model.Movies.Select(m =>
+                            {
+                                if (m.ReleaseDate != null)
+                                    return m.ReleaseDate.Value.Year;
+                                return -1;
+                            }).Where(r => r > 0);
+                        }
+                        @range.Min()
+                        -
+                        @range.Max()
+                    </div>
+                    <div class="quick">
+                        @{
+                            var total = Model.Movies.Select(m =>
+                            {
+                                if (m.ReleaseDate != null)
+                                    return m.Runtime;
+                                return 0;
+                            }).Sum();
+                        }
+                        <div class="runtime">Total runtime: @(total/60)h @(total%60)min</div>
+                    </div>
+                    <div class="genres">
+                        @foreach (var genre in Model.Movies.SelectMany(m => m.Genres).GroupBy(c => c.Id).Select(c => c.First()))
+                        {
+                            <a href="/Search/Index?type=true&id=@genre.Id">
+                                <div>@genre.Name</div>
+                            </a>
+                        }
+                    </div>
+                    <div class="overview">@Model.Overview</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="content container">
+
+    <div class="spacer" style="height: 2vh;"></div>
+
+    <div class="section">
+        <div class="section-label">Movies</div>
+
+        <div class="movie-grid">
+
+            @foreach (var movie in Model.Movies)
+            {
+                if (movie.ReleaseDate != null)
+                {
+                    @Html.Partial("MovieCard", movie);
+                }
+            }
+
+        </div>
+
+    </div>
+
+    <div class="spacer" style="height: 2vh;"></div>
+
+    <div class="section">
+        <div class="section-label">Cast</div>
+
+        <div class="horizontal-ml-init" style="width: 100%;">
+
+            @foreach (var person in Model.Movies.SelectMany(m => m.Cast).GroupBy(c => c.Actor.Id).Select(c => new { a = c.First(), c = c.Count() }).OrderByDescending(o => o.c).Select(a => a.a))
+            {
+                @Html.Partial("ActorCard", person.Actor, new ViewDataDictionary { { "role", person.Role } });
+            }
+
+        </div>
+
+    </div>
+</div>
+

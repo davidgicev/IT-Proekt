@@ -1,0 +1,11 @@
+﻿@using Proekt.Models
+@model List<MovieModel>
+
+<div class="horizontal-ml-init" data-rows="@ViewData["rows"]" style="width: 100%;">
+    
+        @foreach (var movie in Model)
+        {
+            @Html.Partial("MovieCard", movie);
+        }
+    
+</div>

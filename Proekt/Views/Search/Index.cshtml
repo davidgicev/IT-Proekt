@@ -1,0 +1,65 @@
+﻿@using Proekt.Models
+@model List<GenreModel>
+
+@section Stylesheets {
+    <link rel="Stylesheet" href="@Href("~/Content/CustomCss/Search.css")" />
+}
+
+@section scripts {
+    <script src="@Href("~/Scripts/CustomJs/ActorSearch.js")"></script>
+    <script src="@Href("~/Scripts/CustomJs/Search.js")"></script>
+}
+
+<script>
+    var suppliedType = '@ViewBag.type';
+    var suppliedId = '@ViewBag.id';
+    var suppliedDetails = {
+        name: '@ViewBag.name',
+        img: '@ViewBag.img'
+    }
+</script>
+
+<div class="heading">
+    <div class="heading-title">Search</div>
+    <div class="bar container">
+        <div><input id="search" autocomplete="off" spellcheck="false" placeholder="Query" /></div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="sections">
+        <div class="options">
+            <div class="actorSection" id="actor_search">
+                <div>Actors</div>
+                <div><i class="fas fa-search"></i></div>
+            </div>
+            <div class="separator"></div>
+            <div class="genreSection">
+                <p>Genres</p>
+                <div id="genres">
+                    @foreach (var genre in Model)
+                    {
+                        <div class="genrePill" data-id="@genre.Id">@genre.Name</div>
+                    }
+                </div>
+            </div>
+
+        </div>
+        <div class="content">
+            <div id="activeFilters"></div>
+            <div>
+                <div id="result"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="actor-search-screen">
+    <div>
+        <div><i id="actor-search-close" class="fas fa-times"></i></div>
+        <div>
+            <input id="actor-search-input" autocomplete="off" spellcheck="false" placeholder="Search" />
+        </div>
+        <div id="actor-search-result"></div>
+    </div>
+</div>

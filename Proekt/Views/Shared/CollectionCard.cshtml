@@ -1,0 +1,16 @@
+﻿@using Proekt.Models
+@model CollectionModel
+
+
+<div class="collection-card" style="background-image: url(https://image.tmdb.org/t/p/w185@(Model.Poster))">
+    <div class="collection-card-label">
+        <p>Belongs to </p> <a>@Model.Name</a>
+    </div>
+    <div class="collection-card-parts">
+        @foreach(var movie in Model.Movies)
+        {
+            <div style="background-image: url(https://image.tmdb.org/t/p/w200@(movie.Poster))"></div>
+        }
+    </div>
+    @*</a>*@
+</div>

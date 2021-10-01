@@ -1,0 +1,7 @@
+﻿@using Proekt.Models
+@model List<ActorModel>
+
+@foreach(var actor in Model)
+{
+    @Html.Partial("ActorCard", actor)
+}

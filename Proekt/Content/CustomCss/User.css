@@ -1,0 +1,173 @@
+﻿
+.modal-dialog {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+}
+
+.modal-content {
+    padding: 1vw;
+    padding-bottom: 0.5vh;
+    border-radius: 2em;
+    border: none;
+    width: 30vw;
+    height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    color: black;
+}
+
+.modal-body {
+    position: relative;
+    border: none;
+    padding: 1em;
+}
+
+.bootbox-body {
+    font-size: 1.2em;
+}
+
+.modal-footer {
+    border: none;
+}
+
+.modal-content button {
+    outline: none;
+    border: none;
+    margin-right: 1em;
+    padding: 0.5em 1em 0.5em 1em;
+    border-radius: 1em;
+}
+
+    .modal-content button:not(.login-button) {
+        background-color: rgb(240,240,240);
+    }
+
+    .modal-content button:hover {
+        transform: scale(1.05);
+    }
+
+    .modal-content button > i {
+        margin-right: 0.7em;
+    }
+
+.login-button {
+    background-color: #5a6999;
+    color: white;
+}
+
+    .login-button:hover {
+        color: white;
+    }
+
+.bootbox-close-button {
+    display: none;
+}
+
+.heading {
+    height: 20vh;
+    width: 100%;
+    background-color: #5a6999;
+}
+
+.container {
+    margin-bottom: -5vh;
+}
+
+.second-heading {
+    width: 100%;
+    min-height: 20vh;
+    background-color: rgb(240,240,240);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 2em;
+    position: relative;
+    top: -5vh;
+}
+
+.profile-picture {
+    width: 15vh;
+    height: 15vh;
+    background-color: white;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1.5em;
+}
+
+.details > div:nth-child(1) {
+    font-size: 1.6em;
+}
+
+.details > div:nth-child(2) {
+    margin-left: 0.5em;
+}
+
+.actions {
+    margin-top: 2em;
+}
+
+.actions > div {
+    background-color: rgb(225,225,225);
+    display: inline-block;
+    margin-right: 1em;
+    border-radius: 2em;
+    padding: 0.5em;
+    transition: background-color 0.5s;
+    cursor: pointer;
+}
+
+.actions > div > div {
+    display: inline-block;
+    font-size: 0.9em;
+    margin-left: 0.25em;
+    margin-right: 0.5em;
+}
+
+.actions > div i {
+    display: inline-block;
+    font-size: 1.2em;
+}
+
+.actions > div:hover {
+    background-color: grey;
+    color: white;
+}
+
+.content {
+    background-color: white;
+    padding-left: 2em;
+}
+
+
+.spacer {
+    height: 5vh;
+    width: 100%;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: white;
+    padding: 1em;
+}
+
+.section-label {
+    color: black;
+    font-size: 20px;
+    padding: 1vw;
+    padding-right: 2vw;
+    font-family: 'Segoe UI Historic';
+    width: 15em;
+}

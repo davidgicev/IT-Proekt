@@ -1,0 +1,138 @@
+﻿.body-content {
+    background-color: whitesmoke;
+    padding-bottom: 0px;
+}
+
+.sign-label {
+    margin: 0;
+    padding: 0.5em;
+    display: block;
+    text-align: left;
+    font-weight: normal;
+    font-size: 1.1em;
+}
+
+.profile-picture {
+    text-align: center;
+    margin-top: -2vh;
+}
+
+.profile-picture > div {
+    width: 15vh;
+    height: 15vh;
+    border-radius: 50%;
+    background-color: whitesmoke;
+    display: inline-block;
+    background-position: center;
+    background-size: cover;
+}
+
+.sign-two-col {
+    display: flex;
+}
+
+.sign-two-col .sign-label {
+    text-align: center;
+}
+
+.sign-two-col > div {
+    flex: 1;
+    display: inline-block;
+}
+
+.sign-two-col > div:nth-child(1) {
+    margin-right: 0.5em;
+}
+
+.sign-two-col > div:nth-child(2) {
+    margin-left: 0.5em;
+}
+
+.sign-input {
+    outline: none;
+    border: none;
+    padding: 0.5em;
+    margin: 0;
+    border-radius: 1em;
+    padding-left: 1em;
+    background-color: #eff4ff;
+    width: 100%;
+}
+
+.heading {
+    height: 20vh;
+    width: 100%;
+    background-color: #5a6999;
+}
+
+.sign-wrapper {
+    background-color: whitesmoke;
+    text-align: center;
+    padding-bottom: 8vh;
+}
+
+.sign-form {
+    width: min-content;
+    display: inline-block;
+    text-align: center;
+    font-family: system-ui;
+    border-radius: 0.5em;
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+    background-color: white;
+    padding: 3.5vh;
+    position: relative;
+    top: -10vh;
+    width: 22.5vw;
+}
+
+.sign-form > div {
+    font-size: 2em;
+}
+
+.sign-form h4 {
+    padding-bottom: 2em;
+    font-weight: 100;
+}
+
+.sign-section {
+    padding-bottom: 1em;
+}
+
+.sign-form .checkbox {
+    font-size: 0.95em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.sign-form .checkbox label {
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+    position: unset;
+}
+
+.sign-form .checkbox input {
+    font-size: 0.8em;
+    padding: 0;
+    margin: 0;
+    margin-top: 0.4em;
+    margin-left: 1em;
+    position: initial;
+    width: min-content;
+}
+
+.sign-section input[type="submit"] {
+    border: none;
+    background-color: #5a6999;
+    padding: 0.75em;
+    width: 10vw;
+    border-radius: 2em;
+    margin-top: 1em;
+    color: whitesmoke;
+}
+
+.sign-form p {
+    margin-top: 2em;
+    font-size: 0.8em;
+}

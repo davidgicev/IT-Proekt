@@ -1,0 +1,14 @@
+﻿.list_horizontal {
+    background-color: red;
+    padding: 20px;
+    display: inline-block;
+}
+
+.snippet {
+    background-color: blue;
+    display: inline-block;
+}
+
+.poster img {
+    width: 100px;
+}

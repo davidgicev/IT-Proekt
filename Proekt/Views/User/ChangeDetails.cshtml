@@ -1,0 +1,67 @@
+﻿@model Proekt.Models.EditDetailedViewModel
+
+@section Stylesheets {
+    <link rel="Stylesheet" href="@Href("~/Content/CustomCss/Sign.css")" />
+}
+
+
+<div class="heading"></div>
+<div class="sign-wrapper">
+    <div class="sign-form" style="width: 30vw;">
+        <div>Edit Details</div>
+        <section id="loginForm">
+            @using (Html.BeginForm("ChangeDetails", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Change your info.</h4>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="sign-two-col">
+                    <div class="sign-section">
+                        <div class="profile-picture"><div></div></div>
+                    </div>
+                    <div class="sign-section">
+                        @Html.LabelFor(m => m.Picture, new { @class = "sign-label" })
+                        <div>
+                            @Html.TextBoxFor(m => m.Picture, new { @class = "sign-input", @id = "picture_url" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sign-two-col">
+                    <div class="sign-section">
+                        @Html.LabelFor(m => m.FirstName, new { @class = "sign-label" })
+                        <div>
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "sign-input" })
+                        </div>
+                    </div>
+                    <div class="sign-section">
+                        @Html.LabelFor(m => m.LastName, new { @class = "sign-label" })
+                        <div>
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "sign-input" })
+                        </div>
+                    </div>
+                </div>
+                <div class="sign-section">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            }
+        </section>
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    window.addEventListener("load", function () {
+        let input = document.getElementById("picture_url");
+        function updatePicture() {
+            $(".profile-picture > div").css("background-image", "url('" + input.value + "')");
+        }
+        updatePicture();
+        input.addEventListener("input", updatePicture)
+    })
+</script>

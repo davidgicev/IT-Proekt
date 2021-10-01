@@ -1,0 +1,86 @@
+﻿@model Proekt.Models.RegisterDetailedViewModel
+
+@section Stylesheets {
+    <link rel="Stylesheet" href="@Href("~/Content/CustomCss/Sign.css")" />
+}
+
+
+<div class="heading"></div>
+<div class="sign-wrapper">
+    <div class="sign-form" style="width: 30vw;">
+        <div>Sign up</div>
+        <section id="loginForm">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>Create a new account.</h4>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+                <div class="sign-two-col">
+                    <div class="sign-section">
+                        <div class="profile-picture"><div></div></div>
+                    </div>
+                    <div class="sign-section">
+                        @Html.LabelFor(m => m.Picture, new { @class = "sign-label" })
+                        <div>
+                            @Html.TextBoxFor(m => m.Picture, new { @class = "sign-input", @id = "picture_url" })
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sign-two-col">
+                    <div class="sign-section">
+                        @Html.LabelFor(m => m.FirstName, new { @class = "sign-label" })
+                        <div>
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "sign-input" })
+                        </div>
+                    </div>
+                    <div class="sign-section">
+                        @Html.LabelFor(m => m.LastName, new { @class = "sign-label" })
+                        <div>
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "sign-input" })
+                        </div>
+                    </div>
+                </div>
+                <div class="sign-section">
+                    @Html.LabelFor(m => m.Email, new { @class = "sign-label" })
+                    <div>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "sign-input", @autocomplete = "off" })
+                    </div>
+                </div>
+                <div class="sign-section">
+                    @Html.LabelFor(m => m.Password, new { @class = "sign-label" })
+                    <div>
+                        @Html.PasswordFor(m => m.Password, new { @class = "sign-input" })
+                    </div>
+                </div>
+                <div class="sign-section">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "sign-label" })
+                    <div>
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "sign-input" })
+                    </div>
+                </div>
+                <div class="sign-section">
+                    <input type="submit" value="Register" class="btn btn-default" />
+                </div>
+                <p>
+                    Already have an account? @Html.ActionLink("Log in", "Login")
+                </p>
+            }
+        </section>
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    window.addEventListener("load", function () {
+        let input = document.getElementById("picture_url")
+        input.addEventListener("input", function () {
+            $(".profile-picture > div").css("background-image", "url('" + input.value + "')");
+        })
+    })
+</script>

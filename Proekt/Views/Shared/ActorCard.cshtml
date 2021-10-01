@@ -1,0 +1,21 @@
+﻿@using Proekt.Models
+@model ActorModel
+
+@{ 
+    string character = (string)ViewData["role"];
+}
+
+<div class="actor-card" data-id="@Model.Id">
+    <a href="/Search/Index?type=false&id=@Model.Id">
+        <div class="actor-card-poster" style="background-image: url(https://image.tmdb.org/t/p/w185@(Model.Poster))">
+        </div>
+        <div class="actor-card-label">
+            <div>@Model.Name</div>
+            @if (character != null)
+            {
+                <p>@character</p>
+            }
+        </div>
+    </a>
+</div>
+

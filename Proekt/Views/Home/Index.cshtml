@@ -1,0 +1,24 @@
+﻿@using Proekt.Models
+@model List<ListModel>
+
+@section Stylesheets {
+    <link rel="Stylesheet" href="@Href("~/Content/CustomCss/Home.css")" />
+}
+
+<div class="heading">
+    <div class="heading-label">Movix</div>
+    <div class="heading-tagline">Browse more than @ViewBag.numberOfMovies movies</div>
+</div>
+
+<div class="container">
+
+    <div class="section">
+        <div class="section-label">Trending</div>
+        @Html.Partial("HorizontalMovieList", Model[0].Movies, new ViewDataDictionary { { "rows", 2 } })
+    </div>
+
+    <div class="section">
+        <div class="section-label">In theaters</div>
+        @Html.Partial("HorizontalMovieList", Model[1].Movies, new ViewDataDictionary { { "rows", 1 } })
+    </div>
+</div>

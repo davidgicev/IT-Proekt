@@ -1,0 +1,46 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.partial-profile-picture {
+    width: 3vh;
+    height: 3vh;
+    border-radius: 50%;
+    margin-top: 1.5vh;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    margin-right: -1vh;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    position: relative;
+    padding-bottom: 20vh;
+    min-height: 100vh;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    width: 280px;
+}
+
+
+footer {
+    padding: 2em;
+    width: 100%;
+    background-color: #5a6999;
+    color: whitesmoke;
+    position: absolute;
+    bottom: 0px;
+}

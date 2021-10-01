@@ -1,0 +1,92 @@
+﻿@using Proekt.Models
+@model UserDetailsModel
+
+@section Stylesheets {
+    <link rel="Stylesheet" href="@Href("~/Content/CustomCss/User.css")" />
+}
+
+<div class="heading"></div>
+
+<div class="container">
+    <div class="second-heading">
+        @if (Model.Picture != null)
+        {
+            <div class="profile-picture" style="background-image: url('@Model.Picture')"></div>
+        }
+        else
+        {
+            <div class="profile-picture"></div>
+        }
+        <div class="details">
+            <div>@Model.Name</div>
+            <div>@Model.User.Email</div>
+            <div class="actions">
+                <div id="picture_button"><div><i class="fas fa-user-circle"></i></div><div>Update Profile Picture</div></div>
+                <div id="change_details_button"><div><i class="fas fa-id-card"></i></div><div>Edit Profile</div></div>
+
+                @if (User.IsInRole("Administrator"))
+                {
+                    <div id="toggle_admin"><div><i class="fas fa-user-times"></i></div><div>Demote Self</div></div>
+                }
+                else
+                {
+                    <div id="toggle_admin"><div><i class="fas fa-user-check"></i></div><div>Promote Self</div></div>
+                }
+
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        @if (Model.Favorites.Count() > 0)
+        {
+            <div class="section">
+                <div class="section-label">Favorites</div>
+                @Html.Partial("HorizontalMovieList", Model.Favorites)
+
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    window.addEventListener("load", function () {
+        document.getElementById("picture_button").addEventListener("click", function () {
+            bootbox.prompt({
+                title: "Insert the picture's url",
+                buttons: {
+                    confirm: {
+                        label: '<i class="fa fa-check"></i>Done',
+                        className: 'login-button'
+                    },
+                    cancel: {
+                        label: '<i class="fa fa-times"></i>Cancel',
+                    },
+                },
+                callback: function (url) {
+                    if (!url)
+                        return;
+                    $.ajax({
+                        method: "POST",
+                        url: "/User/ChangePicture",
+                        data: { url: url },
+                        complete: function (data) {
+                            location.reload()
+                        },
+                    })
+                }
+            })
+        })
+        document.getElementById("change_details_button").addEventListener("click", function () {
+            location.href = "/User/ChangeDetails"
+        })
+        document.getElementById("toggle_admin").addEventListener("click", function () {
+            $.ajax({
+                method: "POST",
+                url: "/User/ToggleAdmin",
+                complete: function () {
+                    document.getElementById('logoutForm').submit()
+                }
+            })
+        })
+    })
+</script>
